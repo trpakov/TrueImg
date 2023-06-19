@@ -1,0 +1,22 @@
+version: "3.0"
+
+services:
+
+  trueimg:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend/input:/code/backend/input
+      - ./backend/results:/code/backend/results
+    restart: unless-stopped
+
+  redis:
+    image: "redis:alpine"
+    command: --port 16379
+    ports:
+      - "16379"
+    restart: unless-stopped
+    entrypoint: redis-server --appendonly yes --requirepass UCeaD3KjeQx6f7X22wX2zwd
